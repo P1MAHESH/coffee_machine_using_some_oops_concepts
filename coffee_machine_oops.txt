@@ -1,0 +1,78 @@
+# run the menu file before and then do this
+
+%run menu.ipynb
+def close():
+    print("\n\nU turned off the machine\n\n")
+def replay(w,mik,co):
+    if resources['water']>=200 and resources['milk']>=100 and resources['coffee']>=24:
+        resources['water']-=w 
+        resources['milk']-=mik
+        resources['coffee']=resources["coffee"]-co
+        print(f"After dispencing {resources} ")
+    else:
+        print(f"\n\nSorry i cannot provide the coffee as of insufficient resources {resources} and refunding ur money {total_m}\n\n")
+def res(we,cose):
+    if resources['water']>=50 and resources['coffee']>=18:
+        resources['water']-=we
+        resources['coffee']=resources["coffee"]-cose
+        print(f"After dispencing {resources} ")
+    else:
+        print(f"\n\nSorry i cannot provide the coffee as of insufficient resources {resources} and refunding ur money {total_m}\n\n")
+def money(a):
+    global total_m
+    s=int(input("Enter the money quaters dimes nickle pennis ")) 
+    d=int(input("dimes")) 
+    f=int(input("nickles")) 
+    g=int(input("pennis"))
+    total_m=0.25*s+0.10*d+0.05*f+0.01*g
+    print(f"No balance the money u entered is {total_m} and actual cost is {a} ") if total_m==a else "sorry product cannot be dispensed refunding money{total_m}"
+    print(f"The money u inserted is {total_m} and balance is {total_m-a} ")if total_m >a else "Need to insert soome more money"
+class espress():
+    def __init__(self,waters,grams,costs):
+        self.waters=waters
+        self.grams=grams
+        self.costs=costs
+    def display(self):
+        print(f"This your coffee")
+        money(MENU["espresso"]["cost"])
+        res(self.waters,self.grams)
+class cappuccin():
+    def __init__(self,ws,milk,gram,cost):
+        self.ws=ws
+        self.milk=milk
+        self.gram=gram
+        self.cost=cost
+    def display(self):
+        print(f"This your coffee")
+        money(MENU["cappuccino"]["cost"])
+        replay(self.ws,self.milk,self.gram)
+class latte():
+    def __init__(self,we,milker,gramer,costly):
+        self.we=we
+        self.milker=milker
+        self.gramer=gramer
+        self.costly=costly
+    def display(self):
+        print(f"This your coffee")
+        money(MENU["latte"]["cost"])
+        replay(self.we,self.milker,self.gramer)
+while True:
+    coffee_name=input("\n\nChoose your coffee \n espresso \n cappuccino \n latte\n reports\n off\n\n").lower()
+    if coffee_name=='espresso':
+        coffe=espress(MENU["espresso"]["ingredients"].get('water'),MENU["espresso"]["ingredients"].get('coffee'),MENU["espresso"].get('cost'))
+        coffe.display()
+    elif coffee_name=='cappuccino':
+        coffee_lovers=cappuccin(MENU["cappuccino"]["ingredients"].get('water'),MENU["cappuccino"]["ingredients"].get('milk'),MENU["cappuccino"]["ingredients"].get('coffee'),MENU["cappuccino"].get('cost'))
+        coffee_lovers.display()
+    elif coffee_name=='latte':
+        coffee_lrs=latte(MENU["latte"]["ingredients"].get('water'),MENU["latte"]["ingredients"].get('milk'),MENU["latte"]["ingredients"].get('coffee'),MENU["latte"].get('cost'))
+        coffee_lrs.display()
+    elif coffee_name=='reports':
+        coffe_reports=resources
+        print(resources)
+    elif coffee_name=='off':
+        close()
+        break
+    else:
+        print("invalid choice")
+        break
